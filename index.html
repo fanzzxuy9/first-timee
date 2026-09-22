@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>wakakakka</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-image: url('https://i.pinimg.com/736x/bd/f9/a7/bdf9a765a8bc29650dec3a1fc44bdbe2.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+        }
+        .container {
+            text-align: center;
+            background: rgb(250, 250, 251);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 80%;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background-color: #000102;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="konten-utama">
+        <h1>Selamat Datang di Web Xuyaa! 👋</h1>
+        <p>Klik tombol di bawah untuk melihat.</p>
+       <button onclick="keSlide2()">klik kene</button>
+    </div>
+    <script>
+        function keSlide2() {
+    document.getElementById('konten-utama').style.width = '800px';
+    document.getElementById('konten-utama').style.maxWidth = '800px';
+
+    document.getElementById('konten-utama').innerHTML = `
+        <img src="https://davedalessiowrites.wordpress.com/wp-content/uploads/2026/03/kaoruko.webp" width="300">
+        <br><p>Woii ini My bini gwehhhhhh</p>
+        <img src="https://images8.alphacoders.com/139/thumb-1920-1398232.png" width="350">
+        <h3>Tentang waguri?</h3>
+        <p>Kaoruko Waguri adalah tokoh utama wanita dalam serial manga dan anime Kaoru Hana wa Rin to Saku (The Fragrant Flower Blooms with Dignity).</p>
+        <br><h3 style="text-align: left;">Profil Singkat</h3>
+        <p style="font-weight: 200;text-align: left;">Nama: Kaoruko Waguri (和栗 薫子)</p>
+        <p style="font-weight: 200;text-align: left;">Asal Sekolah: Akademi Kikyo (khusus perempuan yang terkenal elit)</p>
+        <p style="font-weight: 200;text-align: left;">Penampilan: Gadis bertubuh mungil, memiliki rambut panjang bergelombang, dan mata gelap.</p>
+        <p style="font-weight: 200;text-align: left;">Kepribadian: Sangat sopan, ramah, rendah hati, tulus, dan pandai membuat kue atau memasak.</p>
+        <br><h3 style="text-align: left;">Peran dalam Cerita</h3>
+        <p style="font-weight: 200;text-align: left;">Menjadi pusat cerita romantis setelah bertemu dengan Rintaro Tsumugi,siswa dari SMA Chidori (sekolah laki-laki yang sering dipandang sebelah mata oleh siswi Kikyo).</p>
+        <p style="font-weight: 200;text-align: left;">Daya Tarik: Karakternya digambarkan sangat ideal karena mematahkan prasangka antar-sekolah dan menunjukkan ketulusan hati tanpa memandang status sosial.</p>
+        <p>Pasangan?</p>
+        <p style="font-weight: 200;text-align: left;">Pasangan atau heroin dari char tsb</p>
+        <p style="font-weight: 200;text-align: left;">Xuyaa : dia orang yang baik sopan dan soleh</p>
+        <br>
+        <button onclick="keSlide1()">⬅ pencet utk balik</button>
+         <button onclick="keSlide3()">Lanjut ke 2 yaw →</button>
+    `;
+}
+function keSlide1() {
+    document.getElementById('konten-utama').innerHTML = `
+        <h1>Selamat Datang di Web Xuyaa! 👋</h1>
+        <p>Klik tombol di bawah untuk melihat.</p>
+        <button onclick="keSlide2()">klik kene</button>
+    `;
+}
+function keSlide3() {
+    document.getElementById('konten-utama').style.width = '800px';
+    document.getElementById('konten-utama').style.maxWidth = '800px';
+
+    document.getElementById('konten-utama').innerHTML = `
+     <h3>Tentang waguri?</h3>
+    <button onclick="keSlide2()">← Kembali ke slide 2</button>
+     <button onclick="keSlide1()">⬅ pencet utk balik ke hal utama</button>
+     `;
+}
+        </script>
+
+</body>
+</html>
