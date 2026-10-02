@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Music Guweh</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#121212;
+    color:white;
+    padding-bottom:110px;
+}
+
+
+
+.sidebar{
+    width:100%;
+    background:#080808;
+    padding:20px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.sidebar h1{
+    font-size:25px;
+    margin-right:15px;
+}
+
+.nav{
+    border:0;
+    background:transparent;
+    color:#aaa;
+    padding:13px 18px;
+    border-radius:10px;
+    font-size:17px;
+}
+
+.nav.active,
+.nav:hover{
+    background:#252525;
+    color:white;
+}
+
+
+
+.main{
+    padding:25px 20px;
+}
+
+
+
+.search-box{
+    width:100%;
+    max-width:750px;
+    height:55px;
+
+    margin:auto;
+    margin-bottom:30px;
+
+    display:flex;
+    align-items:center;
+
+    background:#242424;
+    border-radius:35px;
+
+    padding:5px 8px 5px 20px;
+}
+
+.search-box span{
+    font-size:22px;
+    margin-right:10px;
+}
+
+.search-box input{
+    flex:1;
+
+    border:0;
+    outline:none;
+
+    background:transparent;
+
+    color:white;
+
+    font-size:17px;
+}
+
+.search-box input::placeholder{
+    color:#999;
+}
+
+.search-box button{
+    border:0;
+
+    background:#1ed760;
+
+    color:#000;
+
+    font-weight:bold;
+
+    font-size:16px;
+
+    padding:13px 25px;
+
+    border-radius:30px;
+}
+
+
+
+.hero{
+    max-width:1000px;
+    margin:auto;
+
+    min-height:280px;
+
+    border-radius:22px;
+
+    padding:40px;
+
+    display:flex;
+    align-items:flex-end;
+
+    background:
+    radial-gradient(
+        circle at 80% 20%,
+        #6035c0,
+        transparent 40%
+    ),
+    linear-gradient(
+        135deg,
+        #191919,
+        #292929
+    );
+}
+
+.hero p{
+    color:#1ed760;
+    font-weight:bold;
+    font-size:17px;
+    margin-bottom:15px;
+}
+
+.hero h2{
+    font-size:42px;
+    margin-bottom:15px;
+}
+
+.hero span{
+    color:#bbb;
+    font-size:18px;
+}
+
+/* SONGS */
+
+.section{
+    max-width:1000px;
+    margin:45px auto;
+}
+
+.section h2{
+    font-size:32px;
+    margin-bottom:25px;
+}
+
+.song-grid{
+    display:grid;
+
+    grid-template-columns:
+    repeat(
+        auto-fill,
+        minmax(170px,1fr)
+    );
+
+    gap:20px;
+}
+
+.song-card{
+    background:#181818;
+
+    padding:15px;
+
+    border-radius:15px;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.song-card:hover{
+    background:#292929;
+    transform:translateY(-3px);
+}
+
+.song-cover{
+    width:100%;
+    aspect-ratio:1;
+
+    object-fit:cover;
+
+    border-radius:10px;
+
+    margin-bottom:12px;
+
+    background:#333;
+}
+
+.song-title{
+    font-weight:bold;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+    margin-bottom:6px;
+}
+
+.song-artist{
+    color:#999;
+
+    font-size:14px;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+}
+
+
+
+.player{
+    position:fixed;
+
+    left:0;
+    right:0;
+    bottom:0;
+
+    height:100px;
+
+    background:#181818;
+
+    border-top:1px solid #333;
+
+    display:flex;
+
+    align-items:center;
+
+    padding:10px 20px;
+
+    z-index:999;
+}
+
+.now-playing{
+    width:30%;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    min-width:0;
+}
+
+.now-playing img{
+    width:60px;
+    height:60px;
+
+    object-fit:cover;
+
+    border-radius:6px;
+
+    background:#333;
+}
+
+.now-playing div{
+    min-width:0;
+}
+
+.now-playing strong,
+.now-playing span{
+    display:block;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+}
+
+.now-playing span{
+    color:#999;
+
+    font-size:13px;
+
+    margin-top:5px;
+}
+
+.player-center{
+    flex:1;
+
+    max-width:600px;
+
+    margin:auto;
+}
+
+.controls{
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:25px;
+
+    margin-bottom:5px;
+}
+
+.controls button{
+    border:0;
+
+    background:transparent;
+
+    color:white;
+
+    font-size:22px;
+}
+
+.play-button{
+    width:40px;
+    height:40px;
+
+    border-radius:50%;
+
+    background:white !important;
+
+    color:black !important;
+
+    font-size:18px !important;
+}
+
+.progress-area{
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    color:#aaa;
+
+    font-size:11px;
+}
+
+.progress-area input{
+    flex:1;
+}
+
+input[type="range"]{
+    accent-color:#1ed760;
+}
+
+.volume{
+    width:20%;
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    align-items:center;
+
+    gap:8px;
+}
+
+.volume input{
+    width:100px;
+}
+
+
+
+@media(max-width:700px){
+
+    .sidebar{
+        padding:15px;
+    }
+
+    .sidebar h1{
+        width:100%;
+        font-size:23px;
+    }
+
+    .main{
+        padding:20px 15px;
+    }
+
+    .hero{
+        min-height:230px;
+        padding:25px;
+    }
+
+    .hero h2{
+        font-size:32px;
+    }
+
+    .song-grid{
+        grid-template-columns:repeat(2,1fr);
+        gap:12px;
+    }
+
+    .player{
+        height:110px;
+        padding:8px 10px;
+        flex-wrap:wrap;
+    }
+
+    .now-playing{
+        width:45%;
+    }
+
+    .now-playing img{
+        width:48px;
+        height:48px;
+    }
+
+    .player-center{
+        width:55%;
+    }
+
+    .volume{
+        display:none;
+    }
+
+    .progress-area{
+        width:100%;
+    }
+
+}
+.request-btn{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.request-btn svg{
+    flex-shrink:0;
+}
+
+.request-modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.75);
+    z-index:9999;
+
+    align-items:center;
+    justify-content:center;
+
+    padding:20px;
+}
+
+.request-box{
+    width:min(420px,100%);
+    background:#181818;
+    border-radius:20px;
+    padding:28px;
+
+    box-shadow:0 20px 60px rgba(0,0,0,.5);
+    position:relative;
+}
+
+.request-box h2{
+    font-size:26px;
+    margin-bottom:8px;
+}
+
+.request-box p{
+    color:#aaa;
+    margin-bottom:22px;
+}
+
+.request-box input{
+    width:100%;
+    padding:14px;
+    margin-bottom:12px;
+
+    border:0;
+    outline:none;
+
+    border-radius:10px;
+    background:#292929;
+    color:white;
+    font-size:15px;
+}
+
+.request-box input::placeholder{
+    color:#888;
+}
+
+.send-request{
+    width:100%;
+    padding:14px;
+
+    border:0;
+    border-radius:25px;
+
+    background:#1ed760;
+    color:#000;
+
+    font-weight:bold;
+    font-size:16px;
+    cursor:pointer;
+}
+
+.close-request{
+    position:absolute;
+    right:15px;
+    top:10px;
+
+    border:0;
+    background:transparent;
+    color:#aaa;
+
+    font-size:30px;
+    cursor:pointer;
+}
+
+</style>
+</head>
+
+<body>
+<button class="nav request-btn" onclick="openRequest()">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" stroke-width="2">
+        <path d="M9 18V5l12-2v13"/>
+        <circle cx="6" cy="18" r="3"/>
+        <circle cx="18" cy="16" r="3"/>
+    </svg>
+    Request Lagu
+</button>
+<div id="requestModal" class="request-modal">
+
+    <div class="request-box">
+
+        <button class="close-request" onclick="closeRequest()">×</button>
+
+        <h2>Request Lagu</h2>
+        <p>Masukkan lagu yang ingin kamu request.</p>
+
+        <input
+            type="text"
+            id="requestSong"
+            placeholder="Nama lagu"
+        >
+
+        <input
+            type="text"
+            id="requestArtist"
+            placeholder="Nama artis"
+        >
+
+        <button class="send-request" onclick="sendRequest()">
+            Kirim Request
+        </button>
+
+    </div>
+
+</div>
+
+
+<aside class="sidebar">
+    
+<h1>
+<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+<path d="M9 18V5l12-2v13"/>
+<circle cx="6" cy="18" r="3"/>
+<circle cx="18" cy="16" r="3"/>
+</svg>
+Music Guweh
+</h1>
+
+<button class="nav active" onclick="showHome()">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+<path d="M3 10.5 12 3l9 7.5"/>
+<path d="M5 9v11h14V9"/>
+</svg>
+Beranda
+</button>
+
+<button class="nav">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+<circle cx="11" cy="11" r="7"/>
+<path d="m20 20-4-4"/>
+</svg>
+Cari
+</button>
+
+</aside>
+
+
+
+
+<main class="main">
+
+
+
+
+<div class="search-box">
+
+<span>
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+<circle cx="11" cy="11" r="7"/>
+<path d="m20 20-4-4"/>
+</svg>
+</span>
+
+<input
+id="searchInput"
+type="text"
+placeholder="Cari lagu atau artis..."
+>
+
+<button onclick="searchMusic()">
+Cari
+</button>
+
+</div>
+
+
+
+
+<section class="hero">
+
+<div>
+
+<p>SELAMAT DATANG</p>
+
+<h2>
+Temukan musik favoritmu
+</h2>
+
+<span>
+Dengarkan koleksi musik kamu.
+</span>
+
+</div>
+
+</section>
+
+
+
+
+<section class="section">
+
+<h2 id="sectionTitle">
+Lagu Saya
+</h2>
+
+<div
+id="songGrid"
+class="song-grid"
+></div>
+
+</section>
+
+
+</main>
+
+
+
+
+<div class="player">
+
+
+<div class="now-playing">
+
+<img
+id="playerCover"
+src="covers/cover1.jpg"
+alt="Cover"
+>
+
+<div>
+
+<strong id="playerTitle">
+Belum ada lagu
+</strong>
+
+<span id="playerArtist">
+Pilih lagu untuk mulai
+</span>
+
+</div>
+
+</div>
+
+
+<div class="player-center">
+
+
+<div class="controls">
+
+<button onclick="previousSong()">
+⏮
+</button>
+
+<button
+id="playButton"
+class="play-button"
+onclick="togglePlay()"
+>
+▶
+</button>
+
+<button onclick="nextSong()">
+⏭
+</button>
+
+</div>
+
+
+<div class="progress-area">
+
+<span id="currentTime">
+0:00
+</span>
+
+<input
+id="progress"
+type="range"
+min="0"
+max="100"
+value="0"
+>
+
+<span id="duration">
+0:00
+</span>
+
+</div>
+
+
+</div>
+
+
+<div class="volume">
+
+🔊
+
+<input
+id="volume"
+type="range"
+min="0"
+max="1"
+step="0.01"
+value="0.8"
+>
+
+</div>
+
+
+</div>
+
+
+<audio id="audio"></audio>
+
+
+<script>
+
+const songs = [
+    {
+        title: "Dunia Yang Nanti",
+        artist: "Raim Laode",
+        audio: "dunia yang nanti.mp3",
+        cover: "duniayangnanti1.jpg"
+    },
+    
+        {
+        title: "Shape Of My Heart",
+        artist: "backstreet boys",
+        audio: "shape-of-my-heart.mp3",
+        cover: "shapeofmyheart.jpeg"
+    },
+    
+        {
+        title: "Dunia Yang Nanti",
+        artist: "Raim Laode",
+        audio: "dunia-yang-nanti.mp3",
+        cover: "duniayangnanti1.jpg"
+    },
+];
+
+let currentSong = 0;
+
+const audio =
+document.getElementById("audio");
+
+const songGrid =
+document.getElementById("songGrid");
+
+const playerCover =
+document.getElementById("playerCover");
+
+const playerTitle =
+document.getElementById("playerTitle");
+
+const playerArtist =
+document.getElementById("playerArtist");
+
+const playButton =
+document.getElementById("playButton");
+
+const progress =
+document.getElementById("progress");
+
+const volume =
+document.getElementById("volume");
+
+const currentTime =
+document.getElementById("currentTime");
+
+const duration =
+document.getElementById("duration");
+
+const searchInput =
+document.getElementById("searchInput");
+
+const sectionTitle =
+document.getElementById("sectionTitle");
+
+
+
+function displaySongs(list){
+    
+    playerCover.src = songs[0].cover;
+playerTitle.textContent = songs[0].title;
+playerArtist.textContent = songs[0].artist;
+
+    songGrid.innerHTML="";
+
+
+    list.forEach(song=>{
+
+        const index =
+        songs.indexOf(song);
+
+
+        const card =
+        document.createElement("div");
+
+        card.className="song-card";
+
+
+        card.innerHTML=`
+
+        <img
+        class="song-cover"
+        src="${song.cover}"
+        alt="${song.title}"
+        >
+
+        <div class="song-title">
+        ${song.title}
+        </div>
+
+        <div class="song-artist">
+        ${song.artist}
+        </div>
+
+        `;
+
+
+        card.onclick=()=>{
+
+            playSong(index);
+
+        };
+
+
+        songGrid.appendChild(card);
+
+    });
+
+}
+
+function playSong(index){
+
+    currentSong=index;
+
+    const song=
+    songs[currentSong];
+
+
+    audio.src=
+    song.audio;
+
+
+    playerTitle.textContent=
+    song.title;
+
+
+    playerArtist.textContent=
+    song.artist;
+
+
+    playerCover.src=
+    song.cover;
+
+
+    audio.load();
+
+
+    audio.play()
+    .then(()=>{
+
+     playButton.innerHTML=`
+<svg viewBox="0 0 24 24">
+<path d="M7 5h4v14H7zM13 5h4v14h-4z"/>
+</svg>
+`;
+
+    })
+    .catch(error=>{
+
+        console.log(
+            "Gagal memutar:",
+            error
+        );
+
+        alert(
+            "MP3 tidak bisa diputar. Pastikan file ada di folder music."
+        );
+
+    });
+
+}
+
+function togglePlay(){
+
+    if(!audio.src){
+        playSong(0);
+        return;
+    }
+
+    if(audio.paused){
+
+        audio.play();
+        setPlayIcon(true);
+
+    }else{
+
+        audio.pause();
+        setPlayIcon(false);
+
+    }
+}
+
+
+function setPlayIcon(playing){
+
+    if(playing){
+
+        playButton.innerHTML = `
+        <svg viewBox="0 0 24 24">
+            <path d="M7 5h4v14H7zM13 5h4v14h-4z"/>
+        </svg>
+        `;
+
+    }else{
+
+        playButton.innerHTML = `
+        <svg viewBox="0 0 24 24">
+            <path d="M8 5v14l11-7L8 5z"/>
+        </svg>
+        `;
+
+    }
+
+}
+
+function nextSong(){
+
+    currentSong++;
+
+    if(
+        currentSong>=songs.length
+    ){
+
+        currentSong=0;
+
+    }
+
+    playSong(currentSong);
+
+}
+
+
+
+
+function previousSong(){
+
+    if(audio.currentTime>3){
+
+        audio.currentTime=0;
+
+        return;
+
+    }
+
+
+    currentSong--;
+
+    if(currentSong<0){
+
+        currentSong=
+        songs.length-1;
+
+    }
+
+
+    playSong(currentSong);
+
+}
+
+
+
+
+audio.addEventListener(
+"timeupdate",
+()=>{
+
+    if(!audio.duration)return;
+
+
+    progress.value=
+    (audio.currentTime/
+    audio.duration)*100;
+
+
+    currentTime.textContent=
+    formatTime(
+        audio.currentTime
+    );
+
+
+    duration.textContent=
+    formatTime(
+        audio.duration
+    );
+
+});
+
+
+progress.addEventListener(
+"input",
+()=>{
+
+    if(!audio.duration)return;
+
+
+    audio.currentTime=
+    (progress.value/100)*
+    audio.duration;
+
+});
+
+
+
+
+volume.addEventListener(
+"input",
+()=>{
+
+    audio.volume=
+    volume.value;
+
+});
+
+
+audio.volume=0.8;
+
+
+
+
+audio.addEventListener(
+"ended",
+()=>{
+
+    nextSong();
+
+});
+
+
+
+
+function searchMusic(){
+
+    const query=
+    searchInput.value
+    .trim()
+    .toLowerCase();
+
+
+    if(!query){
+
+        sectionTitle.textContent=
+        "Lagu Saya";
+
+        displaySongs(songs);
+
+        return;
+
+    }
+
+
+    const results=
+    songs.filter(song=>
+
+        song.title
+        .toLowerCase()
+        .includes(query)
+
+        ||
+
+        song.artist
+        .toLowerCase()
+        .includes(query)
+
+    );
+
+
+    sectionTitle.textContent=
+    "Hasil pencarian";
+
+
+    displaySongs(results);
+
+}
+
+
+
+
+searchInput.addEventListener(
+"keydown",
+event=>{
+
+    if(event.key==="Enter"){
+
+        searchMusic();
+
+    }
+
+});
+
+
+
+function focusSearch(){
+
+    searchInput.focus();
+
+}
+
+function showHome() {
+    searchInput.value = "";
+    sectionTitle.textContent = "Lagu Saya";
+
+    displaySongs(songs);
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+
+function formatTime(seconds){
+
+    if(isNaN(seconds)){
+
+        return "0:00";
+
+    }
+
+
+    const minutes=
+    Math.floor(seconds/60);
+
+
+    const secs=
+    Math.floor(seconds%60)
+    .toString()
+    .padStart(2,"0");
+
+
+    return `${minutes}:${secs}`;
+
+}
+
+
+
+displaySongs(songs);
+ function openRequest(){
+
+    document.getElementById("requestModal").style.display = "flex";
+
+}
+
+
+function closeRequest(){
+
+    document.getElementById("requestModal").style.display = "none";
+
+}
+
+
+function sendRequest(){
+
+    const song = document.getElementById("requestSong").value.trim();
+    const artist = document.getElementById("requestArtist").value.trim();
+
+    if(!song){
+
+        alert("Masukkan nama lagu terlebih dahulu!");
+        return;
+
+    }
+
+    const message =
+        `Request Lagu%0A%0ALagu: ${encodeURIComponent(song)}%0AArtis: ${encodeURIComponent(artist || "-")}`;
+
+    // GANTI NOMOR INI DENGAN NOMOR WHATSAPP KAMU
+    const phone = "6285702505960";
+
+    window.open(
+        `https://wa.me/${phone}?text=${message}`,
+        "_blank"
+    );
+
+}
+</script>
+
+</body>
+</html>
+
