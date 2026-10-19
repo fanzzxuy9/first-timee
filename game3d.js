@@ -302,4 +302,16 @@ document.addEventListener("DOMContentLoaded", () => {
         if (BTN_BACK) BTN_BACK.addEventListener('click', exitGame);
         if (OVERLAY_BTN) OVERLAY_BTN.addEventListener('click', exitGame);
     }
+    if (performance.now() < state.attackTime) {
+    ctx.strokeStyle = 'rgba(103, 232, 249, 0.9)'; 
+    ctx.lineWidth = 8; 
+    ctx.lineCap = 'round';
+    ctx.shadowColor = '#67e8f9'; 
+    ctx.shadowBlur = 15;
+    ctx.beginPath();
+    // Gambar lengkungan tebasan di depan karakter sesuai arah hadap
+    ctx.arc(px, py, 55, player.facing === 1 ? -Math.PI/2 : Math.PI/2, player.facing === 1 ? Math.PI/2 : Math.PI*1.5);
+    ctx.stroke();
+    ctx.shadowBlur = 0; // reset shadow
+    }
 });
